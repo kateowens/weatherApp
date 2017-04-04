@@ -13,17 +13,9 @@
 @property (nonatomic, strong) NSString *currentTemperature;
 @end
 
-//static NSString *const kAPIKey = @"ac7e7e282f1cd5de";
-
 @implementation ViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)getCurrentTemperature {
@@ -49,7 +41,7 @@
 
 - (IBAction)showWeather {
     [self getCurrentTemperature];
-    self.weatherLabel.text = self.currentTemperature;
+    self.weatherLabel.text = _currentTemperature;
 }
 
 @end

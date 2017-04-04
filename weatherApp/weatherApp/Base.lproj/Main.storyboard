@@ -33,7 +33,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Get Weather"/>
                                 <connections>
-                                    <action selector="getWeather" destination="BYZ-38-t0r" eventType="touchUpInside" id="hPj-hu-ckQ"/>
                                     <action selector="showWeather" destination="BYZ-38-t0r" eventType="touchUpInside" id="wVj-H4-qCK"/>
                                 </connections>
                             </button>
