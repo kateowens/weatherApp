@@ -20,7 +20,7 @@
 
 - (void)getCurrentTemperature {
     NSURLSession *URLSession = [NSURLSession sharedSession];
-    NSURL *weatherURL = [NSURL URLWithString:@"http://api.wunderground.com/api/ac7e7e282f1cd5de/conditions/q/MI/Detroit.json"];
+    NSURL *weatherURL = [NSURL URLWithString:@"http://api.openweathermap.org/data/2.5/weather?q=\Detroit&APPID=cde859005a79f66e60394e5e2c72546e"];
 
     NSURLSessionDataTask *dataTask = [URLSession dataTaskWithURL:weatherURL completionHandler:^(NSData *data,
                                                                                                 NSURLResponse *response,
@@ -30,9 +30,16 @@
                                                                                options:0
                                                                                  error:nil];
             
+            NSDictionary *weatherDictionary = [dictionaryFromJSON objectForKey:@"weather"];
             NSLog(@"%@", [dictionaryFromJSON objectForKey:@"weather"]);
+            NSLog(@"%@", weatherDictionary);
             
-            self.currentTemperature = [dictionaryFromJSON valueForKey:@"weather"];
+            NSString *weatherDescription = [weatherDictionary valueForKey:@"description"];
+            self.weatherLabel.text = weatherDescription;
+            
+            
+            NSLog(@"%@", self.weatherLabel.text);
+            
         }
     }];
     
@@ -41,7 +48,6 @@
 
 - (IBAction)showWeather {
     [self getCurrentTemperature];
-    self.weatherLabel.text = _currentTemperature;
 }
 
 @end
