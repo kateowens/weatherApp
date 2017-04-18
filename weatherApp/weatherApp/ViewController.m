@@ -23,10 +23,11 @@
 }
 
 - (void)getCurrentTemperature {
+    
     NSURLSession *URLSession = [NSURLSession sharedSession];
-
+    
     NSURL *weatherURL = [NSURL URLWithString:@"http://api.openweathermap.org/data/2.5/weather?q=Detroit&units=imperial&APPID=cde859005a79f66e60394e5e2c72546e"];
-
+    
     NSURLSessionDataTask *dataTask = [URLSession dataTaskWithURL:weatherURL completionHandler:^(NSData *data,
                                                                                                 NSURLResponse *response,
                                                                                                 NSError *error) {
@@ -43,27 +44,26 @@
             NSString *minTemperature = [temperatureDictionary valueForKey:@"temp_min"];
             NSString *maxTemperature = [temperatureDictionary valueForKey:@"temp_max"];
             NSString *humidity = [temperatureDictionary valueForKey:@"humidity"];
-
             
-            self.weatherLabel.text = [weatherDescription objectAtIndex:0];
+            
             NSLog(@"%@", temperatureDictionary);
             NSLog(@"%@", temperature);
             
+            
             NSString *minAndMaxTempString = [NSString stringWithFormat: @"Today's low: %@, today's high: %@", (minTemperature), (maxTemperature)];
-            
-            
-            NSLog(@"%@", minAndMaxTempString);
-            self.minAndMaxTemperatureLabel.text = minAndMaxTempString;
 
+            NSLog(@"%@", minAndMaxTempString);
             
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.minAndMaxTemperatureLabel.text = minAndMaxTempString;
+                self.weatherLabel.text = [weatherDescription objectAtIndex:0];
+                
+            });
         }
     }];
     
-    [dataTask resume];
-}
-
-- (void)getTenDayForecast {
     
+    [dataTask resume];
 }
 
 
@@ -71,5 +71,6 @@
 - (IBAction)showWeather {
     [self getCurrentTemperature];
 }
+
 
 @end
